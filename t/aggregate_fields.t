@@ -13,11 +13,6 @@ our $configs = {
         location = /upload/ {
             upload_pass @upstream;
             upload_resumable on;
-            upload_aggregate_form_field "upload_file_crc32" "$upload_file_crc32";
-            upload_aggregate_form_field "upload_file_md5" "$upload_file_md5";
-            upload_aggregate_form_field "upload_file_md5_uc" "$upload_file_md5_uc";
-            upload_aggregate_form_field "upload_file_sha1" "$upload_file_sha1";
-            upload_aggregate_form_field "upload_file_sha1_uc" "$upload_file_sha1_uc";
             upload_aggregate_form_field "upload_file_sha256" "$upload_file_sha256";
             upload_aggregate_form_field "upload_file_sha256_uc" "$upload_file_sha256_uc";
             upload_aggregate_form_field "upload_file_sha512" "$upload_file_sha512";
@@ -139,12 +134,7 @@ qr/^(??{'a' x 131072 . 'b' x 131072})$/
 --- error_code eval
 [201, 200]
 --- response_body eval
-["0-131071/262144", qq{upload_file_crc32 = 
-upload_file_md5 = 
-upload_file_md5_uc = 
-upload_file_sha1 = 
-upload_file_sha1_uc = 
-upload_file_sha256 = 
+["0-131071/262144", qq{upload_file_sha256 = 
 upload_file_sha256_uc = 
 upload_file_sha512 = 
 upload_file_sha512_uc = 
@@ -184,12 +174,7 @@ qr/^(??{'a' x 131072 . 'b' x 131072})$/
 --- raw_request eval: $::requests->{standard}->{raw_request}->()
 --- error_code: 200
 --- response_body eval
-qq{upload_file_crc32 = db99345e
-upload_file_md5 = 01f2c9f3ccdf9c44f733ff443228e66d
-upload_file_md5_uc = 01F2C9F3CCDF9C44F733FF443228E66D
-upload_file_sha1 = a2eb84a7bee5e2263e9a3cffae44a4a11044bb2e
-upload_file_sha1_uc = A2EB84A7BEE5E2263E9A3CFFAE44A4A11044BB2E
-upload_file_sha256 = 58a200a96c5ef282be0d02ab6906655513584bf281bef027b842c2e66b1c56c7
+qq{upload_file_sha256 = 58a200a96c5ef282be0d02ab6906655513584bf281bef027b842c2e66b1c56c7
 upload_file_sha256_uc = 58A200A96C5EF282BE0D02AB6906655513584BF281BEF027B842C2E66B1C56C7
 upload_file_sha512 = fa5af601c85900b80f40865a74a71a74ba382b51336543ba72b31d2e0af80867c1862051763ea9309f637b2ad6133b6e170e4f088a2951a3d05d6fe3a5bcd0e9
 upload_file_sha512_uc = FA5AF601C85900B80F40865A74A71A74BA382B51336543BA72B31D2E0AF80867C1862051763EA9309F637B2AD6133B6E170E4F088A2951A3D05D6FE3A5BCD0E9

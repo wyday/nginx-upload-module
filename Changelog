@@ -1,5 +1,7 @@
 master (unreleased)
 * Added feature: http2 support. Thanks to Frankie Dintino.
+* Remove SHA1, CRC, MD5.
+* Added PCRE2 support.
 
 Version 2.2.1
  * Added feature: SHA-256 and SHA-512

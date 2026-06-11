@@ -141,15 +141,10 @@ value could contain standard nginx variables, variables from
 [upload_set_form_field](#upload_set_form_field) directive and
 following additional special variables:
 
-  - `$upload_file_md5`: MD5 checksum of the file
-  - `$upload_file_md5_uc`: MD5 checksum of the file in uppercase letters
-  - `$upload_file_sha1`: SHA1 checksum of the file
-  - `$upload_file_sha1_uc`: SHA1 checksum of the file in uppercase letters
   - `$upload_file_sha256`: SHA256 checksum of the file
   - `$upload_file_sha256_uc`: SHA256 checksum of the file in uppercase letters
   - `$upload_file_sha512`: SHA512 checksum of the file
-  - `$upload_file_sha512_uc`: SHA512 checksum of the file in uppercase letters
-  - `$upload_file_crc32`: hexdecimal value of CRC32 of the file
+  - `$upload_file_sha512_uc`: SHA512 checksum of the file in uppercase letters 
   - `$upload_file_size`: size of the file in bytes
   - `$upload_file_number`: ordinal number of file in request body
 
@@ -157,14 +152,10 @@ The value of a field specified by this directive is evaluated after
 successful upload of the file, thus these variables are valid only at
 the end of processing of one part of original request body.
 
-**Warning:**: variables `$upload_file_md5`, `$upload_file_md5_uc`,
-`$upload_file_sha1`, and `$upload_file_sha1_uc` use additional
-resources to calculate MD5 and SHA1 checksums.
-
 Usage example:
 
 ```nginx
-upload_aggregate_form_field $upload_field_name.md5 "$upload_file_md5";
+upload_aggregate_form_field $upload_field_name.sha256 "$upload_file_sha256";
 upload_aggregate_form_field $upload_field_name.size "$upload_file_size";
 
 ```
@@ -334,7 +325,7 @@ server {
         upload_set_form_field $upload_field_name.path "$upload_tmp_path";
 
         # Inform backend about hash and size of a file
-        upload_aggregate_form_field "$upload_field_name.md5" "$upload_file_md5";
+        upload_aggregate_form_field "$upload_field_name.sha256" "$upload_file_sha256";
         upload_aggregate_form_field "$upload_field_name.size" "$upload_file_size";
 
         upload_pass_form_field "^submit$|^description$";
